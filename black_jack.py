@@ -1,35 +1,3 @@
-import random
-
-class Card:
-    def __init__(self, suit, rank):
-        self.suit = suit
-        self.rank = rank
-
-    def __str__(self):
-        return f"{self.rank} of {self.suit}"
-
-
-class Deck:
-    def __init__(self):
-        self.cards = []
-        self.create_deck()
-
-    def create_deck(self):
-        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-        ranks = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace']
-        for suit in suits:
-            for rank in ranks:
-                self.cards.append(Card(suit, rank))
-
-    def shuffle(self):
-        random.shuffle(self.cards)
-
-    def deal_card(self):
-        if len(self.cards) > 0:
-            return self.cards.pop()
-        else:
-            return None
-
 class Hand:
     def __init__(self):
         self.cards = []
@@ -53,17 +21,11 @@ class Hand:
             num_aces -= 1
         return value
 
-
-# Приклад використання:
-deck = Deck()
-deck.shuffle()
-
-player_hand = Hand()
-player_hand.add_card(deck.deal_card())
-player_hand.add_card(deck.deal_card())
-
-print("Player's hand:")
-for card in player_hand.cards:
-    print(card)
-
-print("Value of player's hand:", player_hand.get_value())
+    def display(self, hide_first_card=False):
+        if hide_first_card:
+            print("<Hidden Card>")
+            for card in self.cards[1:]:
+                print(card)
+        else:
+            for card in self.cards:
+                print(card)
