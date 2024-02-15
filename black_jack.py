@@ -1,31 +1,22 @@
-class Hand:
+import random
+
+class Deck:
     def __init__(self):
         self.cards = []
+        self.create_deck()
 
-    def add_card(self, card):
-        self.cards.append(card)
+    def create_deck(self):
+        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+        ranks = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace']
+        for suit in suits:
+            for rank in ranks:
+                self.cards.append(Deck(suit, rank))
 
-    def get_value(self):
-        value = 0
-        num_aces = 0
-        for card in self.cards:
-            if card.rank in ['Jack', 'Queen', 'King']:
-                value += 10
-            elif card.rank == 'Ace':
-                num_aces += 1
-                value += 11
-            else:
-                value += int(card.rank)
-        while value > 21 and num_aces:
-            value -= 10
-            num_aces -= 1
-        return value
+    def shuffle(self):
+        random.shuffle(self.cards)
 
-    def display(self, hide_first_card=False):
-        if hide_first_card:
-            print("<Hidden Card>")
-            for card in self.cards[1:]:
-                print(card)
+    def deal_card(self):
+        if len(self.cards) > 0:
+            return self.cards.pop()
         else:
-            for card in self.cards:
-                print(card)
+            return None
